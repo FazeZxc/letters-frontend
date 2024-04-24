@@ -1,9 +1,13 @@
 import axios from 'axios'
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { useSetRecoilState } from 'recoil'
+import { authState } from '../store/authState'
+import Cookies from 'js-cookie'
 
-export const LogIn = () => {
+export const LogIn = ({ socket }) => {
     const navigate = useNavigate()
+    const setAuthState = useSetRecoilState(authState)
     const [userInput, setUserInput] = useState({
         username: '',
         password: '',
@@ -37,8 +41,12 @@ export const LogIn = () => {
                     password: userInput.password,
                 }
             )
-            console.log(response)
-            navigate('/')
+            console.log(response.data.user)
+            const { userName } = response.data.user
+            setAuthState(response.data)
+            Cookies.set('token', response.data.token, { expires: 7, path: '/' })
+            socket.emit('newUser', { userName, socketID: socket.id })
+            navigate('/app')
         } catch (error) {
             console.log(error)
         }
