@@ -1,13 +1,15 @@
 import axios from 'axios'
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { useSetRecoilState } from 'recoil'
+import { useRecoilValue, useSetRecoilState } from 'recoil'
 import { authState } from '../store/authState'
 import Cookies from 'js-cookie'
+import { BACKEND_URL } from '../store/urls'
 
 export const LogIn = ({ socket }) => {
     const navigate = useNavigate()
     const setAuthState = useSetRecoilState(authState)
+    const backendUrl = useRecoilValue(BACKEND_URL)
     const [userInput, setUserInput] = useState({
         username: '',
         password: '',
@@ -34,13 +36,10 @@ export const LogIn = ({ socket }) => {
 
     async function logInUser() {
         try {
-            const response = await axios.post(
-                'https://letters-backend-f1xc.onrender.com/auth/login',
-                {
-                    userName: userInput.username,
-                    password: userInput.password,
-                }
-            )
+            const response = await axios.post(backendUrl + '/auth/login', {
+                userName: userInput.username,
+                password: userInput.password,
+            })
             console.log(response.data.user)
             const { userName } = response.data.user
             setAuthState(response.data)

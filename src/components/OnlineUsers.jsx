@@ -8,15 +8,14 @@ export const OnlineUsers = ({ socket }) => {
     }, [socket, users])
 
     return (
-        <div>
-            <h2>Open Chat</h2>
-            <div>
-                <h4>ACTIVE USERS</h4>
-                <div>
-                    {users.map((user) => (
-                        <p key={user.socketID}>{user.userName}</p>
-                    ))}
-                </div>
+        <div className="flex flex-col w-full items-start gap-4">
+            <h4 className="font-bold text-white text-[12px]">ACTIVE USERS</h4>
+            <div className=" text-xl py-2 flex flex-col gap-2">
+                {users.map((user) => (
+                    <p className="chat-bubble rounded-lg" key={user.socketID}>
+                        {user.userName}
+                    </p>
+                ))}
             </div>
         </div>
     )
