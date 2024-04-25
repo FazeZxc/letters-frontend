@@ -51,14 +51,17 @@ export const SignIn = () => {
 
     async function signUpUser() {
         try {
-            const response = await axios.post('https://letters-backend-f1xc.onrender.com/auth/register', {
-                firstName: userInput.firstname,
-                lastName: userInput.lastname,
-                userName: userInput.username,
-                email: userInput.email,
-                password: userInput.password,
-            })
-            console.log(response);
+            const response = await axios.post(
+                'https://letters-backend-f1xc.onrender.com/auth/register',
+                {
+                    firstName: userInput.firstname,
+                    lastName: userInput.lastname,
+                    userName: userInput.username,
+                    email: userInput.email,
+                    password: userInput.password,
+                }
+            )
+            console.log(response)
             navigate('/auth/login')
         } catch (error) {
             console.log(error)
@@ -66,52 +69,102 @@ export const SignIn = () => {
     }
 
     return (
-        <div>
-            <form onSubmit={inputValidation}>
+        <div className="flex flex-col justify-center py-4">
+            <div className="flex flex-col gap-2 font-extrabold lg:text-left text-center">
+                <p className="text-4xl px-4">Create Your Letters Account.</p>
+            </div>
+            <form
+                onSubmit={inputValidation}
+                className="px-4 form-control lg:w-[500px] xl:w-[500px]"
+            >
+                <label
+                    htmlFor="firstname"
+                    className="label text-primary-accent"
+                >
+                    What is your first name.
+                </label>
                 <input
                     type="text"
                     onChange={formInputHandler}
                     id="firstname"
-                    placeholder="first name"
+                    placeholder="Enter first name"
                     value={userInput.firstname}
+                    className="input-accent input-sm"
                 />
+                <label htmlFor="lastname" className="label text-primary-accent">
+                    And your last name.
+                </label>
                 <input
+                    className="input-accent input-sm"
                     type="text"
                     id="lastname"
-                    placeholder="last name"
+                    placeholder="Enter last name"
                     onChange={formInputHandler}
                     value={userInput.lastname}
                 />
+                <label htmlFor="username" className="label text-primary-accent">
+                    This is what others will see you as.
+                </label>
                 <input
+                    className="input-accent input-sm"
                     type="text"
                     id="username"
                     onChange={formInputHandler}
-                    placeholder="username"
+                    placeholder="Pick a username"
                     value={userInput.username}
                 />
+                <label htmlFor="lastname" className="label text-red-500">
+                    Required.
+                </label>
                 <input
+                    className="input-accent input-sm"
                     id="email"
                     type="email"
                     onChange={formInputHandler}
-                    placeholder="email"
+                    placeholder="Enter your email address"
                     value={userInput.email}
                 />
+                <label
+                    htmlFor="lastname"
+                    className="label text-primary-secondary"
+                >
+                    Please choose a strong password.
+                </label>
                 <input
+                    className="input-accent input-sm"
                     id="password"
                     type="password"
                     onChange={formInputHandler}
-                    placeholder="password"
+                    placeholder="Create a new password"
                     value={userInput.password}
                 />
+                <label htmlFor="lastname" className="label text-red-500">
+                    Required.
+                </label>
                 <input
+                    className="input-accent input-sm"
                     id="cPassword"
                     type="text"
                     onChange={formInputHandler}
-                    placeholder="cPassword"
+                    placeholder="Re-enter password"
                     value={userInput.cPassword}
                 />
-                <button onSubmit={inputValidation}>Sign Up</button>
+                <button
+                    onSubmit={inputValidation}
+                    className="btn btn-primary my-6 text-primary-secondary"
+                >
+                    Sign Up
+                </button>
             </form>
+            <div className="px-4 flex flex-row gap-2">
+                <p className="text-secondary">Already have an account?</p>
+                <a
+                    onClick={() => navigate('/auth/login')}
+                    className="text-primary underline"
+                >
+                    Log in instead
+                </a>
+            </div>
         </div>
     )
 }

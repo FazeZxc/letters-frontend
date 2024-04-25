@@ -95,7 +95,12 @@ export const LogIn = ({ socket }) => {
             </form>
             <div className="p-4 flex flex-row gap-2">
                 <p className="text-secondary">New to Letters?</p>
-                <a className="text-primary underline">Create an account!</a>
+                <a
+                    onClick={() => navigate('/auth/register')}
+                    className="text-primary underline"
+                >
+                    Create an account!
+                </a>
             </div>
             <div className="p-4">
                 <li>If you are just visiting:</li>
