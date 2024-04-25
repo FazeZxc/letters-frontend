@@ -15,6 +15,12 @@ export const HomePage = () => {
             >
                 Log In
             </button>
+            <button
+                onClick={() => navigate('/auth/register')}
+                className="btn btn-primary"
+            >
+                Create Account
+            </button>
             <div>{currentAuthState != null ? <LogoutButton /> : null}</div>
         </div>
     )
