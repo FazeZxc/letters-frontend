@@ -59,7 +59,7 @@ function App() {
                     <Route
                         path="/app"
                         element={
-                            <div className='h-5/6'>
+                            <div className="h-5/6">
                                 <AutoLogin />
                                 <Header></Header>
                                 <ChatPage socket={socket} />

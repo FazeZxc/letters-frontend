@@ -36,6 +36,7 @@ export const LogIn = ({ socket }) => {
 
     async function logInUser() {
         try {
+            console.log(backendUrl);
             const response = await axios.post(backendUrl + '/auth/login', {
                 userName: userInput.username,
                 password: userInput.password,
