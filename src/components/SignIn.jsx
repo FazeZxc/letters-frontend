@@ -51,7 +51,7 @@ export const SignIn = () => {
 
     async function signUpUser() {
         try {
-            const response = await axios.post('http://localhost:3000/auth/register', {
+            const response = await axios.post('https://letters-backend-f1xc.onrender.com/auth/register', {
                 firstName: userInput.firstname,
                 lastName: userInput.lastname,
                 userName: userInput.username,

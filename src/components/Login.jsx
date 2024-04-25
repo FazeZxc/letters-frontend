@@ -35,7 +35,7 @@ export const LogIn = ({ socket }) => {
     async function logInUser() {
         try {
             const response = await axios.post(
-                'http://localhost:3000/auth/login',
+                'https://letters-backend-f1xc.onrender.com/auth/login',
                 {
                     userName: userInput.username,
                     password: userInput.password,
@@ -53,24 +53,55 @@ export const LogIn = ({ socket }) => {
     }
 
     return (
-        <div>
-            <form onSubmit={inputValidation}>
+        <div className="h-full flex flex-col justify-center">
+            <div className="flex flex-col gap-2 font-extrabold text-5xl text-left p-4">
+                <span className="selection:hidden bg-clip-text text-transparent bg-gradient-to-r from-pink-500 to-violet-500">
+                    Letters
+                </span>
+                <p className="text-4xl">Welcome back</p>
+            </div>
+            <form
+                onSubmit={inputValidation}
+                className="px-4 form-control lg:w-[500px]  xl:w-[500px]"
+            >
+                <label htmlFor="username" className="label text-primary-accent">
+                    Username
+                </label>
                 <input
+                    className="input-accent input-md"
                     type="text"
                     id="username"
                     onChange={formInputHandler}
-                    placeholder="username"
+                    placeholder="Enter your username"
                     value={userInput.username}
                 />
+                <label htmlFor="password" className="label text-primary-accent">
+                    Password
+                </label>
                 <input
+                    className="input-accent input-md"
                     id="password"
                     type="password"
                     onChange={formInputHandler}
                     placeholder="password"
                     value={userInput.password}
                 />
-                <button onSubmit={inputValidation}>Log In</button>
+                <button
+                    className="btn btn-primary my-6 text-primary-secondary"
+                    onSubmit={inputValidation}
+                >
+                    Log In
+                </button>
             </form>
+            <div className="p-4 flex flex-row gap-2">
+                <p className="text-secondary">New to Letters?</p>
+                <a className="text-primary underline">Create an account!</a>
+            </div>
+            <div className="p-4">
+                <li>If you are just visiting:</li>
+                <p className="px-4">Demo User : admin</p>
+                <p className="px-4">Demo Pass : admin</p>
+            </div>
         </div>
     )
 }

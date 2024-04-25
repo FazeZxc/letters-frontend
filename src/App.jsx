@@ -11,14 +11,16 @@ import { ChatPage } from './pages/ChatPage'
 import { useSetRecoilState } from 'recoil'
 import socketIO from 'socket.io-client'
 import { LogoutButton } from './components/LogoutButton'
+import { Navbar } from './components/Navbar'
+import { Header } from './components/Header'
 
 const token = Cookies.get('token')
-const socket = socketIO.connect('http://localhost:3000', {
+const socket = socketIO.connect('https://letters-backend-f1xc.onrender.com/', {
     query: token,
 })
 function App() {
     return (
-        <div>
+        <div className="h-dvh w-dvw bg-gray-900">
             <BrowserRouter>
                 <Routes>
                     <Route path="/auth/register" Component={SignIn}></Route>
@@ -39,8 +41,9 @@ function App() {
                         element={
                             <>
                                 <AutoLogin />
+                                <Header></Header>
                                 <ChatPage socket={socket} />
-                                <LogoutButton />
+                                <Navbar />
                             </>
                         }
                     ></Route>
@@ -59,7 +62,7 @@ const AutoLogin = () => {
             if (token) {
                 try {
                     const response = await axios.post(
-                        'http://localhost:3000/auth/auto-login',
+                        'https://letters-backend-f1xc.onrender.com/auth/auto-login',
                         {
                             token,
                         }
