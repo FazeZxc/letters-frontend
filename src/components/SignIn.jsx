@@ -1,9 +1,12 @@
 import axios from 'axios'
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { useRecoilValue } from 'recoil'
+import { BACKEND_URL } from '../store/urls'
 
 export const SignIn = () => {
     const navigate = useNavigate()
+    const backendUrl = useRecoilValue(BACKEND_URL)
     const [userInput, setUserInput] = useState({
         firstname: '',
         lastname: '',
@@ -51,16 +54,13 @@ export const SignIn = () => {
 
     async function signUpUser() {
         try {
-            const response = await axios.post(
-                'https://letters-backend-f1xc.onrender.com/auth/register',
-                {
-                    firstName: userInput.firstname,
-                    lastName: userInput.lastname,
-                    userName: userInput.username,
-                    email: userInput.email,
-                    password: userInput.password,
-                }
-            )
+            const response = await axios.post(backendUrl + '/auth/register', {
+                firstName: userInput.firstname,
+                lastName: userInput.lastname,
+                userName: userInput.username,
+                email: userInput.email,
+                password: userInput.password,
+            })
             console.log(response)
             navigate('/auth/login')
         } catch (error) {

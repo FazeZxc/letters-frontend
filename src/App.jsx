@@ -8,17 +8,28 @@ import Cookies from 'js-cookie'
 import axios from 'axios'
 import { authState } from './store/authState'
 import { ChatPage } from './pages/ChatPage'
-import { useSetRecoilState } from 'recoil'
+import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil'
 import socketIO from 'socket.io-client'
-import { LogoutButton } from './components/LogoutButton'
 import { Navbar } from './components/Navbar'
 import { Header } from './components/Header'
-
+import { BACKEND_URL } from './store/urls'
+import { ProfilePage } from './pages/ProfilePage'
+const VITE_BACKEND_URL = import.meta.env.VITE_BACKEND_URL
 const token = Cookies.get('token')
-const socket = socketIO.connect('https://letters-backend-f1xc.onrender.com/', {
-    query: token,
-})
+
 function App() {
+    const [backendUrl, setBACKEND_URL] = useRecoilState(BACKEND_URL)
+    if (import.meta.env.MODE === 'development') {
+        console.log('Development Mode')
+        console.log(backendUrl)
+    } else {
+        setBACKEND_URL(VITE_BACKEND_URL)
+        console.log(backendUrl)
+    }
+
+    const socket = socketIO.connect(backendUrl, {
+        query: token,
+    })
     return (
         <div className="h-dvh w-dvw bg-gray-900">
             <BrowserRouter>
@@ -37,14 +48,23 @@ function App() {
                         }
                     ></Route>
                     <Route
-                        path="/app"
+                        path="/profile"
                         element={
                             <>
+                                <ProfilePage />
+                                <Navbar />
+                            </>
+                        }
+                    ></Route>
+                    <Route
+                        path="/app"
+                        element={
+                            <div className='h-5/6'>
                                 <AutoLogin />
                                 <Header></Header>
                                 <ChatPage socket={socket} />
                                 <Navbar />
-                            </>
+                            </div>
                         }
                     ></Route>
                 </Routes>
@@ -54,6 +74,7 @@ function App() {
 }
 
 const AutoLogin = () => {
+    const backendUrl = useRecoilValue(BACKEND_URL)
     const setAuthState = useSetRecoilState(authState)
     const navigate = useNavigate()
     useEffect(() => {
@@ -62,7 +83,7 @@ const AutoLogin = () => {
             if (token) {
                 try {
                     const response = await axios.post(
-                        'https://letters-backend-f1xc.onrender.com/auth/auto-login',
+                        backendUrl + '/auth/auto-login',
                         {
                             token,
                         }

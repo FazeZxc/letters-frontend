@@ -6,7 +6,6 @@ import { useNavigate } from 'react-router-dom'
 export const HomePage = () => {
     const currentAuthState = useRecoilValue(authState)
     const navigate = useNavigate()
-    console.log(currentAuthState)
     return (
         <div>
             <button
@@ -20,6 +19,18 @@ export const HomePage = () => {
                 className="btn btn-primary"
             >
                 Create Account
+            </button>
+            <button
+                onClick={() => navigate('/app')}
+                className="btn btn-secondary"
+            >
+                Global Chat
+            </button>
+            <button
+                onClick={() => navigate('/profile')}
+                className="btn btn-primary"
+            >
+                Profile
             </button>
             <div>{currentAuthState != null ? <LogoutButton /> : null}</div>
         </div>
