@@ -1,4 +1,9 @@
-export const ActiveMessagesComponent = ()=>{
-    return <div>
-    </div>
+import { useEffect } from "react"
+
+export const ActiveMessagesComponent = () => {
+    const [users, setUsers] = useState([])
+    useEffect(()=>{
+        
+    })
+    return <div>{users}</div>
 }
