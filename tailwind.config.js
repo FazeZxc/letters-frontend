@@ -15,8 +15,8 @@ export default {
                 'primary-secondary': '#D6DBA9',
             },
             backgroundImage: {
-                homepage: 'url("./src/assets/homepage.jpg")',
-                loginpage: 'url("./src/assets/login.jpg")',
+                homepage: 'url("/src/assets/homepage.jpg")',
+                loginpage: 'url("/src/assets/login.jpg")',
             },
         },
     },
