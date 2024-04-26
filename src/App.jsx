@@ -21,11 +21,8 @@ function App() {
     const [backendUrl, setBACKEND_URL] = useRecoilState(BACKEND_URL)
     const [currentAuthState, setAuthState] = useRecoilState(authState)
     if (import.meta.env.MODE === 'development') {
-        console.log('Development Mode')
-        console.log(backendUrl)
     } else {
         setBACKEND_URL(VITE_BACKEND_URL)
-        console.log(backendUrl)
     }
 
     const socket = socketIO.connect(backendUrl, {
@@ -43,9 +40,7 @@ function App() {
                         }
                     )
                     setAuthState(response.data)
-                    console.log(currentAuthState)
                 } catch (error) {
-                    console.log(error)
                 }
             }
         }

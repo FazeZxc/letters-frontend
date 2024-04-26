@@ -21,8 +21,6 @@ export const InputField = ({ socket, lastMessageRef, typingStatus }) => {
 
     function sendMessage(event) {
         event.preventDefault()
-        console.log(currentAuthState.user)
-        console.log('socket connected : ' + socket.connected)
         if (chatInput.trim() && currentAuthState.user) {
             socket.emit('message', {
                 text: chatInput,

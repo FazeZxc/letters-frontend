@@ -1,6 +1,5 @@
-import { useRecoilState, useRecoilValue } from 'recoil'
+import { useRecoilValue } from 'recoil'
 import { authState } from '../store/authState'
-import { LogoutButton } from '../components/LogoutButton'
 import { useNavigate } from 'react-router-dom'
 import { HomePageNavbar } from '../components/homePageNavbar'
 

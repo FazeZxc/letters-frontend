@@ -45,10 +45,8 @@ export const SignIn = () => {
             ) {
                 signUpUser()
             } else {
-                console.log('all fields are required')
             }
         } else {
-            console.error('password didnt matched')
         }
     }
 
@@ -61,10 +59,8 @@ export const SignIn = () => {
                 email: userInput.email,
                 password: userInput.password,
             })
-            console.log(response)
             navigate('/auth/login')
         } catch (error) {
-            console.log(error)
         }
     }
 

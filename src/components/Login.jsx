@@ -31,25 +31,21 @@ export const LogIn = ({ socket }) => {
         if (userInput.username && userInput.password) {
             logInUser()
         } else {
-            console.log('all fields are required')
         }
     }
 
     async function logInUser() {
         try {
-            console.log(backendUrl)
             const response = await axios.post(backendUrl + '/auth/login', {
                 userName: userInput.username,
                 password: userInput.password,
             })
-            console.log(response.data.user)
             const { userName } = response.data.user
             setAuthState(response.data)
             Cookies.set('token', response.data.token, { expires: 7, path: '/' })
             socket.emit('newUser', { userName, socketID: socket.id })
             navigate('/app')
         } catch (error) {
-            console.log(error)
         }
     }
 
