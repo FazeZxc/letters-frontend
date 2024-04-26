@@ -3,7 +3,6 @@ import { authState } from '../store/authState'
 
 export const ProfilePage = () => {
     const currentAuthState = useRecoilValue(authState)
-    console.log(currentAuthState)
     return (
         <div className="h-5/6 xl:items-center flex flex-col justify-center content-between">
             {currentAuthState ? (

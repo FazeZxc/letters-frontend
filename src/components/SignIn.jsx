@@ -45,10 +45,8 @@ export const SignIn = () => {
             ) {
                 signUpUser()
             } else {
-                console.log('all fields are required')
             }
         } else {
-            console.error('password didnt matched')
         }
     }
 
@@ -61,17 +59,17 @@ export const SignIn = () => {
                 email: userInput.email,
                 password: userInput.password,
             })
-            console.log(response)
             navigate('/auth/login')
         } catch (error) {
-            console.log(error)
         }
     }
 
     return (
-        <div className="flex flex-col justify-center py-4">
+        <div className="flex flex-col justify-center py-4 xl:items-center xl:pt-12">
             <div className="flex flex-col gap-2 font-extrabold lg:text-left text-center">
-                <p className="text-4xl px-4">Create Your Letters Account.</p>
+                <p className="text-4xl px-4 underline">
+                    Create Your Letters Account.
+                </p>
             </div>
             <form
                 onSubmit={inputValidation}

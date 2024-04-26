@@ -5,6 +5,7 @@ import { useRecoilValue, useSetRecoilState } from 'recoil'
 import { authState } from '../store/authState'
 import Cookies from 'js-cookie'
 import { BACKEND_URL } from '../store/urls'
+import loginIllus from '../assets/login.jpg'
 
 export const LogIn = ({ socket }) => {
     const navigate = useNavigate()
@@ -30,30 +31,26 @@ export const LogIn = ({ socket }) => {
         if (userInput.username && userInput.password) {
             logInUser()
         } else {
-            console.log('all fields are required')
         }
     }
 
     async function logInUser() {
         try {
-            console.log(backendUrl);
             const response = await axios.post(backendUrl + '/auth/login', {
                 userName: userInput.username,
                 password: userInput.password,
             })
-            console.log(response.data.user)
             const { userName } = response.data.user
             setAuthState(response.data)
             Cookies.set('token', response.data.token, { expires: 7, path: '/' })
             socket.emit('newUser', { userName, socketID: socket.id })
             navigate('/app')
         } catch (error) {
-            console.log(error)
         }
     }
 
     return (
-        <div className="h-full flex flex-col justify-center">
+        <div className="h-full flex flex-col justify-center xl:items-center">
             <div className="flex flex-col gap-2 font-extrabold text-5xl text-left p-4">
                 <span className="selection:hidden bg-clip-text text-transparent bg-gradient-to-r from-pink-500 to-violet-500">
                     Letters

@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import { ChatBox } from '../components/ChatBoxComponent'
 import { InputField } from '../components/InputField'
 import { OnlineUsers } from '../components/OnlineUsers'
+import { SettingsMenu } from '../components/settingsMenu'
 
 export const ChatPage = ({ socket }) => {
     const [messages, setMessages] = useState([])
@@ -28,6 +29,7 @@ export const ChatPage = ({ socket }) => {
                 />
                 <div className="drawer-content">
                     <div className="flex flex-col justify-end">
+                        <SettingsMenu />
                         <ChatBox
                             messages={messages}
                             lastMessageRef={lastMessageRef}
