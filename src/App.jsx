@@ -1,4 +1,4 @@
-import { BrowserRouter, Route, Routes, useNavigate } from 'react-router-dom'
+import { Route, Routes } from 'react-router-dom'
 import './App.css'
 import { SignIn } from './components/SignIn'
 import { LogIn } from './components/Login'
@@ -8,7 +8,7 @@ import Cookies from 'js-cookie'
 import axios from 'axios'
 import { authState } from './store/authState'
 import { ChatPage } from './pages/ChatPage'
-import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil'
+import { useRecoilState } from 'recoil'
 import socketIO from 'socket.io-client'
 import { Navbar } from './components/Navbar'
 import { Header } from './components/Header'
@@ -19,6 +19,7 @@ const token = Cookies.get('token')
 
 function App() {
     const [backendUrl, setBACKEND_URL] = useRecoilState(BACKEND_URL)
+    const [currentAuthState, setAuthState] = useRecoilState(authState)
     if (import.meta.env.MODE === 'development') {
         console.log('Development Mode')
         console.log(backendUrl)
@@ -30,57 +31,10 @@ function App() {
     const socket = socketIO.connect(backendUrl, {
         query: token,
     })
-    return (
-        <div className="h-dvh w-dvw bg-gray-900">
-            <BrowserRouter>
-                <Routes>
-                    <Route path="/auth/register" Component={SignIn}></Route>
-                    <Route
-                        path="/auth/login"
-                        element={<LogIn socket={socket} />}
-                    ></Route>
-                    <Route
-                        path="/"
-                        element={
-                            <>
-                                <HomePage />
-                            </>
-                        }
-                    ></Route>
-                    <Route
-                        path="/profile"
-                        element={
-                            <>
-                                <ProfilePage />
-                                <Navbar />
-                            </>
-                        }
-                    ></Route>
-                    <Route
-                        path="/app"
-                        element={
-                            <div className="h-5/6">
-                                <AutoLogin />
-                                <Header></Header>
-                                <ChatPage socket={socket} />
-                                <Navbar />
-                            </div>
-                        }
-                    ></Route>
-                </Routes>
-            </BrowserRouter>
-        </div>
-    )
-}
-
-const AutoLogin = () => {
-    const backendUrl = useRecoilValue(BACKEND_URL)
-    const setAuthState = useSetRecoilState(authState)
-    const navigate = useNavigate()
     useEffect(() => {
         async function autoLogin() {
             const token = Cookies.get('token')
-            if (token) {
+            if (token && currentAuthState) {
                 try {
                     const response = await axios.post(
                         backendUrl + '/auth/auto-login',
@@ -89,18 +43,52 @@ const AutoLogin = () => {
                         }
                     )
                     setAuthState(response.data)
+                    console.log(currentAuthState)
                 } catch (error) {
                     console.log(error)
                 }
-            } else {
-                console.log('not signed in')
-                navigate('/auth/login')
             }
         }
         autoLogin()
     }, [])
-
-    return <div></div>
+    return (
+        <div className="h-dvh w-dvw bg-gray-900">
+            <Routes>
+                <Route path="/auth/register" Component={SignIn}></Route>
+                <Route
+                    path="/auth/login"
+                    element={<LogIn socket={socket} />}
+                ></Route>
+                <Route
+                    path="/"
+                    element={
+                        <>
+                            <HomePage />
+                        </>
+                    }
+                ></Route>
+                <Route
+                    path="/profile"
+                    element={
+                        <>
+                            <ProfilePage />
+                            <Navbar />
+                        </>
+                    }
+                ></Route>
+                <Route
+                    path="/app"
+                    element={
+                        <div className="h-5/6">
+                            <Header></Header>
+                            <ChatPage socket={socket} />
+                            <Navbar />
+                        </div>
+                    }
+                ></Route>
+            </Routes>
+        </div>
+    )
 }
 
 export default App

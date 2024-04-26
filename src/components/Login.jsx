@@ -5,6 +5,7 @@ import { useRecoilValue, useSetRecoilState } from 'recoil'
 import { authState } from '../store/authState'
 import Cookies from 'js-cookie'
 import { BACKEND_URL } from '../store/urls'
+import loginIllus from '../assets/login.jpg'
 
 export const LogIn = ({ socket }) => {
     const navigate = useNavigate()
@@ -36,7 +37,7 @@ export const LogIn = ({ socket }) => {
 
     async function logInUser() {
         try {
-            console.log(backendUrl);
+            console.log(backendUrl)
             const response = await axios.post(backendUrl + '/auth/login', {
                 userName: userInput.username,
                 password: userInput.password,
@@ -53,7 +54,7 @@ export const LogIn = ({ socket }) => {
     }
 
     return (
-        <div className="h-full flex flex-col justify-center">
+        <div className="h-full flex flex-col justify-center xl:items-center">
             <div className="flex flex-col gap-2 font-extrabold text-5xl text-left p-4">
                 <span className="selection:hidden bg-clip-text text-transparent bg-gradient-to-r from-pink-500 to-violet-500">
                     Letters

@@ -69,9 +69,11 @@ export const SignIn = () => {
     }
 
     return (
-        <div className="flex flex-col justify-center py-4">
+        <div className="flex flex-col justify-center py-4 xl:items-center xl:pt-12">
             <div className="flex flex-col gap-2 font-extrabold lg:text-left text-center">
-                <p className="text-4xl px-4">Create Your Letters Account.</p>
+                <p className="text-4xl px-4 underline">
+                    Create Your Letters Account.
+                </p>
             </div>
             <form
                 onSubmit={inputValidation}

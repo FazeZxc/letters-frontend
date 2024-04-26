@@ -14,6 +14,10 @@ export default {
                 'primary-black': '#131200',
                 'primary-secondary': '#D6DBA9',
             },
+            backgroundImage: {
+                homepage: 'url("./src/assets/homepage.jpg")',
+                loginpage: 'url("./src/assets/login.jpg")',
+            },
         },
     },
     plugins: [require('daisyui')],
