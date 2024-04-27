@@ -19,6 +19,7 @@ export const ChatPage = ({ socket }) => {
     useEffect(() => {
         socket.on('typingResponse', (data) => setTypingStatus(data))
     }, [socket])
+    console.log(messages);
     return (
         <div className="flex flex-row">
             <div className="drawer drawer-end">
@@ -30,6 +31,7 @@ export const ChatPage = ({ socket }) => {
                 <div className="drawer-content">
                     <div className="flex flex-col justify-end">
                         <SettingsMenu />
+                        
                         <ChatBox
                             messages={messages}
                             lastMessageRef={lastMessageRef}

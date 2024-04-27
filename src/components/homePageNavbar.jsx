@@ -1,14 +1,16 @@
 import { useNavigate } from 'react-router-dom'
 import { useRecoilValue } from 'recoil'
 import { authState } from '../store/authState'
+import { Channels } from './Channels'
 
 export const HomePageNavbar = () => {
     const navigate = useNavigate()
     const currentAuthState = useRecoilValue(authState)
-    
+
     return (
         <div className="navbar bg-base-100">
             <div className="navbar-start">
+                <Channels />
                 <div className="dropdown">
                     <div
                         tabIndex={0}

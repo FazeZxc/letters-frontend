@@ -5,7 +5,6 @@ import { useRecoilValue, useSetRecoilState } from 'recoil'
 import { authState } from '../store/authState'
 import Cookies from 'js-cookie'
 import { BACKEND_URL } from '../store/urls'
-import loginIllus from '../assets/login.jpg'
 
 export const LogIn = ({ socket }) => {
     const navigate = useNavigate()

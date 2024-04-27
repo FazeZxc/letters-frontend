@@ -24,9 +24,12 @@ function App() {
     } else {
         setBACKEND_URL(VITE_BACKEND_URL)
     }
-
     const socket = socketIO.connect(backendUrl, {
-        query: token,
+        query: {
+            token: token,
+            userName: currentAuthState?.user.userName,
+            channelId: 'test',
+        },
     })
     useEffect(() => {
         async function autoLogin() {
@@ -40,8 +43,7 @@ function App() {
                         }
                     )
                     setAuthState(response.data)
-                } catch (error) {
-                }
+                } catch (error) {}
             }
         }
         autoLogin()
